@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Edit Food Item</h2>
+
+<form method="POST">
+    <label for="item_name">Item Name</label>
+    <input type="text" id="item_name" name="item_name" value="{{ item.item_name }}" style="text-transform: capitalize;" required>
+    <br><br>
+    <label for="price">Price (₹)</label>
+    <input type="number" id="price" name="price" step="1" min="0" value="{{ item.price }}" required>
+    <br><br>
+    <label for="category_id">Category</label>
+    <select id="category_id" name="category_id">
+        <option value="">-- No Category --</option>
+        {% for cat in categories %}
+        <option value="{{ cat.category_id }}" {% if item.category_id == cat.category_id %}selected{% endif %}>{{ cat.category_name }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <label for="stock_quantity">Stock Quantity</label>
+    <input type="number" id="stock_quantity" name="stock_quantity" step="1" min="0" value="{{ item.stock_quantity }}" required>
+    <br><br>
+    <label for="is_available">
+        <input type="checkbox" id="is_available" name="is_available" {% if item.is_available %}checked{% endif %}>
+        Is Available
+    </label>
+    <br><br>
+    <button type="submit">Update Item</button>
+    <a href="{{ url_for('food_items.food_items') }}" class="btn btn-danger" style="margin-left: 10px;">Cancel</a>
+</form>
+{% endblock %}

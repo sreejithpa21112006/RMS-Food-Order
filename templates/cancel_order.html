@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Cancel Order</h2>
+
+<form method="POST">
+    <input type="hidden" name="action" value="search">
+    <label for="order_id">Order ID</label>
+    <input type="number" id="order_id" name="order_id" required>
+    <button type="submit">Search</button>
+</form>
+
+{% if order %}
+<h2 style="margin-top:30px;">Order Found</h2>
+<table>
+    <tr><th>Order ID</th><td>#{{ order.order_id }}</td></tr>
+    <tr><th>Customer Name</th><td>{{ order.customer_name }}</td></tr>
+    <tr><th>Customer Mobile Number</th><td>{{ order.customer_mobile }}</td></tr>
+    <tr><th>Order Date</th><td>{{ order.order_date }}</td></tr>
+    <tr><th>Current Status</th><td><span class="status-badge status-{{ order.status }}">{{ order.status }}</span></td></tr>
+    <tr><th>Total Amount</th><td>₹{{ "%.2f"|format(order.total_amount) }}</td></tr>
+</table>
+
+{% if order.status != "canceled" %}
+<form method="POST" style="margin-top:20px;">
+    <input type="hidden" name="action" value="cancel">
+    <input type="hidden" name="order_id" value="{{ order.order_id }}">
+    <button type="submit" class="btn-danger">Cancel This Order</button>
+</form>
+{% else %}
+<p style="margin-top:15px;color:#7f8c8d;"><strong>This order is already canceled.</strong></p>
+{% endif %}
+{% endif %}
+{% endblock %}

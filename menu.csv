@@ -1,0 +1,278 @@
+item_id,item_name,category_id,price,stock_quantity,is_available
+7,Chettinad Soup,51,90.00,100,1
+8,French Onion Soup,51,80.00,100,1
+9,Cream Of Mushroom,53,80.00,100,1
+10,Hot & Sour Vegetable Soup **,51,80.00,100,1
+11,Sweet Corn Vegetable Soup,51,80.00,100,1
+12,Pepper Soup,51,75.00,100,1
+13,Baby Corn Soup,51,75.00,100,1
+14,Cream Clear Soup,51,75.00,100,1
+15,Vegetable Clear Soup,51,75.00,100,1
+16,Veg. Manchow Soup,51,75.00,100,1
+17,Mushroom Soup,51,70.00,100,1
+18,Tomato Soup,51,65.00,100,1
+19,Vegetable Soup,51,65.00,100,1
+20,Chettinad Idly **,52,120.00,100,1
+21,Idly Manchurian,52,120.00,100,1
+22,Pepper Idly *,52,115.00,100,1
+23,Gundur Podi Idly **,52,110.00,100,1
+24,Podi Idly *,52,100.00,100,1
+25,Idly Fry,52,100.00,100,1
+26,Chilli Idly *,52,100.00,100,1
+27,Mini Ghee Idly,52,85.00,100,1
+28,Ghee Pongal,52,70.00,100,1
+29,Sambar Idly,52,70.00,100,1
+30,Rasam Idly,52,70.00,100,1
+31,Sambar Vadai - 1 Nos,52,65.00,100,1
+32,Curd Vadai - 1 Nos,52,65.00,100,1
+33,Rasam Vadai - 1 No.,52,60.00,100,1
+34,Mini Tiffin,52,50.00,100,1
+35,Idly - 2 Nos,52,40.00,100,1
+36,Vadai,52,35.00,100,1
+37,Chilly Cheese Garlic Toast,53,180.00,100,1
+38,Mushroom On Toast,53,180.00,100,1
+39,Chilly Corn Toast,53,180.00,100,1
+40,Chef Spl Fried Mushroom,53,180.00,100,1
+41,Chef Spl Fried Paneer,53,180.00,100,1
+42,Corn Cheese Balls,53,180.00,100,1
+43,Cottage Cheese Fritters,53,180.00,100,1
+44,Tossed Salad,59,130.00,100,1
+45,Russian Salad,59,130.00,100,1
+46,Italian Pasta Salad,59,130.00,100,1
+47,Pani Puri,54,60.00,100,1
+48,Bhel Puri,54,65.00,100,1
+49,Sev Puri,54,70.00,100,1
+50,Dahi Puri,54,60.00,100,1
+51,Dahi Bhel Puri,54,70.00,100,1
+52,Masala Puri,54,70.00,100,1
+53,Channa Masala,58,90.00,100,1
+54,Pav Bhaji,54,80.00,100,1
+55,Cheese Pav Bhaji,54,90.00,100,1
+56,Dahi Papdi Chaat,54,80.00,100,1
+57,Spl Veg Briyani*,55,180.00,100,1
+58,Cashew Pulao,55,175.00,100,1
+59,Kashmiri Pulao,55,170.00,100,1
+60,Panner Pulao,55,165.00,100,1
+61,Mushroom Briyani*,55,160.00,100,1
+62,Mushroom Pulao,55,155.00,100,1
+63,Ghee Pulao,55,155.00,100,1
+64,Green Peas Pulao,55,150.00,100,1
+65,Baby Corn Briyani *,55,150.00,100,1
+66,Veg Pulao,55,145.00,100,1
+67,Jeera Pulao,55,145.00,100,1
+68,Hariyali Paneer Tikka,53,185.00,100,1
+69,Paneer Pakoda,53,175.00,100,1
+70,Paneer Tikka,53,175.00,100,1
+71,Veg. Lolly Pop,53,170.00,100,1
+72,Panner -65,53,170.00,100,1
+73,Aloo Tikka,53,165.00,100,1
+74,Paneer Ginger Fry *,53,165.00,100,1
+75,Dragon Baby Corn *,56,160.00,100,1
+76,Mushroom Tikka,53,160.00,100,1
+77,Gobi Tikka,53,160.00,100,1
+78,Spring Roll,53,160.00,100,1
+79,Mushroom - 65,53,150.00,100,1
+80,Aloo Dhum,53,150.00,100,1
+81,Baby Corn Masala,58,145.00,100,1
+82,Veg. Manchurian Dry,56,145.00,100,1
+83,Gobi Chilli Fry *,53,145.00,100,1
+84,Gobi - 65,53,140.00,100,1
+85,Gobi Pakoda,53,140.00,100,1
+86,Finger Chips,53,110.00,100,1
+87,Onion Pakoda,53,110.00,100,1
+88,Cutlet 1 Nos,53,60.00,100,1
+89,Masala Papad,58,60.00,100,1
+90,Roasted Papad,53,50.00,100,1
+91,Fry Papad,53,50.00,100,1
+92,American Chopsuey,56,200.00,100,1
+93,Vasanta Bhavan Spl Fried Rice,56,190.00,100,1
+94,Paneer Noodles,56,185.00,100,1
+95,Cashew Noodles,56,175.00,100,1
+96,Singapore Noodles,56,175.00,100,1
+97,Paneer Fried Rice,56,175.00,100,1
+98,Schezwan Fried Rice **,56,175.00,100,1
+99,Chilli Garlic Noodles **,56,175.00,100,1
+100,Vasanta Bhavan Spl Noodles,56,170.00,100,1
+101,Schezwan Noodles **,56,170.00,100,1
+102,Mushroom Noodles,56,170.00,100,1
+103,Mushroom Fried Rice,56,170.00,100,1
+104,Shanghai Noodles,56,170.00,100,1
+105,Gobi Fried Rice,56,165.00,100,1
+106,B 2 B Fried Rice,56,165.00,100,1
+107,Shanghai Fried Rice **,56,165.00,100,1
+108,Chilli Garlic Fried Rice **,56,160.00,100,1
+109,Veg. Fried Rice,56,150.00,100,1
+110,Veg. Noodles,56,135.00,100,1
+111,Steam Rice,3,90.00,100,1
+112,Aloo Parotta,57,95.00,100,1
+113,Masala Kulcha,57,80.00,100,1
+114,Tandoori Parotta,57,80.00,100,1
+115,Suffed Naan,57,80.00,100,1
+116,Butter Naan,57,80.00,100,1
+117,Kashmiri Naan,57,80.00,100,1
+118,Butter Roti,57,70.00,40,1
+119,Tandoori Roti,57,65.00,100,1
+120,Kulcha,57,60.00,100,1
+121,Naan,57,60.00,100,1
+122,Phulka - 2 Pcs,53,60.00,100,1
+123,Vasanta Bhavan Spl Gravy,58,190.00,100,1
+124,Navarathna Kuruma,58,190.00,100,1
+125,Malai Kofta Curry,58,190.00,100,1
+126,Dragon Paneer *,56,175.00,100,1
+127,Paneer Manchurian,56,170.00,100,1
+128,Mutter Paneer,53,170.00,100,1
+129,Chilli Paneer Gravy *,58,170.00,100,1
+130,Baby Corn Masala / Golden Fry -65 *,58,170.00,100,1
+131,Baby Corn Manchurian,56,170.00,100,1
+132,Kadai Paneer *,53,170.00,100,1
+133,Palak Paneer,58,170.00,100,1
+134,Paneer Shahjahani,53,170.00,100,1
+135,Paneer Hyderabadi,53,170.00,100,1
+136,Aloo Chutney Wala,53,170.00,100,1
+137,Mushroom Manchurian,56,165.00,100,1
+138,Mushroom Chilli Gravy *,58,165.00,100,1
+139,Paneer Butter Masala,58,160.00,100,1
+140,Green Peas Masala,58,160.00,100,1
+141,Gobi Manchurian,56,160.00,100,1
+142,Aloo Capsicum Masala,58,160.00,33,0
+143,Aloo Gobi Masala,58,160.00,100,1
+144,Mixed Veg Kuruma,58,160.00,100,1
+145,Gobi Masala,58,155.00,100,1
+146,Mushroom Masala,58,155.00,100,1
+147,Chilli Gobi Gravy *,58,155.00,100,1
+148,Aloo Palak,58,155.00,100,1
+149,Veg Jaipuri Gravy,54,150.00,100,1
+150,Veg Kola Puri Gravy,54,150.00,100,1
+151,Paneer Dopiyaza,53,150.00,100,1
+152,Chenna Masala,58,140.00,100,1
+153,Crispy Fried Vegtables,53,140.00,100,1
+154,Veg. Dry Fry,53,140.00,100,1
+155,Dhal Butter Fry,58,130.00,100,1
+156,Veg Green Garden Salad,59,75.00,100,1
+157,Onion Salad,59,75.00,100,1
+158,Tomatto Salad,59,75.00,100,1
+159,Onion Cucumber Raitha,59,75.00,100,1
+160,Pineapple Raitha,59,75.00,100,1
+161,Cucumber Raitha,59,75.00,100,1
+162,Mixed Raitha,59,75.00,100,1
+163,Boonthi Raitha,59,75.00,100,1
+164,Veg. Biriji,61,100.00,100,1
+165,Lemon Rice,61,80.00,100,1
+166,Tamarind Rice *,61,80.00,100,1
+167,Tomato Rice,61,80.00,100,1
+168,Sambar Rice,61,80.00,100,1
+169,Curd Rice,61,80.00,100,1
+170,Paneer Masala Dosai,52,145.00,100,1
+171,Veg. Kheema Dosai *,52,145.00,100,1
+172,Gobi Masala Dosai *,52,145.00,100,1
+173,Mushroom Masala Dosai *,52,135.00,100,1
+174,Chola Poori,52,120.00,100,1
+175,Veg. Oothappam,52,120.00,100,1
+177,Kuli Paniyaram - Karam *,53,100.00,100,1
+178,Kuli Paniyaram Sweet,60,100.00,100,1
+179,Wheat Dosai,52,90.00,100,1
+180,Idiyappam,52,85.00,100,1
+181,Appam,52,90.00,100,1
+182,Bonda,53,60.00,100,1
+183,Bhajji *,53,60.00,100,1
+184,Paper Roast,53,150.00,100,1
+185,Chilli Parotta *,57,140.00,100,1
+186,Kaima Parotta,57,130.00,100,1
+187,Family Roast,53,120.00,100,1
+188,Ghee Dosai,52,100.00,100,1
+190,Masala Dosai,52,95.00,100,1
+191,Dosai,52,65.00,100,1
+192,Rava Dosai,52,65.00,100,1
+193,Onion Dosai,52,85.00,100,1
+194,Onion Rava Dosai,52,85.00,100,1
+195,Onion Oothappam,52,85.00,100,1
+196,Podi Oothappam / Dosai *,52,85.00,100,1
+197,Tomato Oothappam,52,85.00,100,1
+198,Poori - 2 Nos,52,70.00,100,1
+199,Oothappam,52,65.00,100,1
+200,Chappathi - 2 Nos,57,65.00,100,1
+201,Parotta - 2 Nos,57,65.00,100,1
+202,Badam Milk Hot,3,80.00,100,1
+203,Boost,3,60.00,100,1
+204,Horlicks,3,60.00,100,1
+205,Coffee,3,40.00,100,1
+206,Tea,3,40.00,100,1
+207,Milk,3,40.00,100,1
+208,Vb Spl Mixed Juice,3,165.00,100,1
+209,Pomegranate Pure,3,155.00,100,1
+210,Falooda,3,145.00,100,1
+211,Dry Fruit Juice,3,145.00,100,1
+212,Orange Pure,3,140.00,100,1
+213,Pineapple Pure,3,140.00,100,1
+214,Butter Fruit Juice,3,135.00,100,1
+215,Atthi Pazham (Big) Juice,3,135.00,100,1
+216,Mosambi Pure,3,135.00,100,1
+217,Muskmelon Juice (Kirini),3,135.00,100,1
+218,Dragan,53,135.00,100,1
+219,Papaya Juice,3,135.00,100,1
+220,Apple Pure,3,135.00,100,1
+221,Mango Juice,3,135.00,100,1
+222,Kiwi Juice,3,135.00,100,1
+223,Pomegranate Juice,3,125.00,100,1
+224,Amla Juice,3,125.00,100,1
+225,Fruit Salad With Ice Cream,59,125.00,100,1
+226,Grape Pure,3,120.00,100,1
+227,Orange Juice,3,120.00,100,1
+228,Mosambi Juice,3,115.00,100,1
+229,Carrot Juice,3,115.00,100,1
+230,Pineapple Juice,3,115.00,100,1
+231,Apple Juice,3,115.00,100,1
+232,Fruit Salad,59,105.00,100,1
+233,Sappotta Juice,3,105.00,100,1
+235,Beetroot Juice,3,105.00,100,1
+236,Grape Juice,3,95.00,100,1
+237,Banana Juice,3,95.00,100,1
+238,Sweet Lemon,60,65.00,100,1
+239,Watermelon Juice,3,90.00,100,1
+240,Fresh Lime Soda (Lemon),3,75.00,100,1
+241,Fresh Lime Salt,3,65.00,100,1
+242,Mint Lime,3,65.00,100,1
+243,Ginger Lime,3,65.00,100,1
+244,Mango Lassi,3,150.00,100,1
+245,Pineapple Lassi,3,125.00,100,1
+246,Chikku Lassi,3,120.00,100,1
+247,Rose Lassi,3,80.00,100,1
+248,Lassi (Sweet / Salt),3,80.00,100,1
+249,Pomegranate Milk Shake,3,155.00,100,1
+250,Butter Scotch Milk Shake,3,145.00,100,1
+251,Apple Milk Shake,3,145.00,100,1
+252,Pineapple Milk Shake,3,145.00,100,1
+253,Chocolate Milk Shake,3,145.00,100,1
+254,Pista Milk Shake,3,145.00,100,1
+255,Mango Milk Shake,3,140.00,100,1
+256,Strawberry Milk Shake,3,115.00,100,1
+257,Vanilla Milk Shake,3,115.00,100,1
+258,Damman Sweet Milk Shake,3,115.00,100,1
+259,Rose Milk,3,90.00,100,1
+260,Veg. Sandwich,53,80.00,100,1
+261,Veg. Sandwich With Cheese,53,120.00,100,1
+262,Chill Cheese Sandwich,53,100.00,100,1
+263,Paneer Sandwich,53,120.00,100,1
+264,Somasa Sandwich,53,120.00,100,1
+265,Bread Butter Jam,53,100.00,100,1
+266,Veg. Cheese Sandwich,53,100.00,100,1
+267,Somasa,53,30.00,100,1
+268,Saudi Mercy,53,120.00,100,1
+269,Chocolate (Small),60,60.00,100,1
+270,Chocolate (Large),60,90.00,100,1
+271,Butter Scotch (Small),60,60.00,30,1
+272,Butter Scotch (Large),60,90.00,100,1
+273,Strawberry (Small),60,50.00,100,1
+274,Strawberry (Large),60,70.00,100,1
+275,Vannila (Small),60,50.00,100,1
+276,Vannila (Large),60,70.00,100,1
+277,Pista (Small),60,50.00,100,1
+278,Pista (Large),60,70.00,100,1
+279,Pista / Mango (Small),60,50.00,100,1
+280,Pista / Mango (Large),60,70.00,100,1
+281,Strawberry / Mango (Small),60,50.00,100,1
+282,Strawberry / Mango (Large),60,70.00,100,1
+283,Choco Mango (Small),53,50.00,100,1
+284,Choco Mango (Large),53,70.00,100,1
+285,Casatta Slice,60,45.00,100,1
+286,Pepsi,53,70.00,100,1

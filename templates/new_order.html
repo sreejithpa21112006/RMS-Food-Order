@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Create New Order</h2>
+
+<form method="POST">
+    <label for="customer_name">Customer Name</label>
+    <input type="text" id="customer_name" name="customer_name" required>
+
+    <label for="customer_mobile">Customer Mobile Number</label>
+    <input type="tel" id="customer_mobile" name="customer_mobile" required>
+
+    <label for="customer_email">Customer Email (Optional)</label>
+    <input type="email" id="customer_email" name="customer_email">
+
+    <h2 style="margin-top:25px;">Select Food Items</h2>
+    
+    <input type="text" id="food-search" placeholder="Search food items..." style="margin-bottom: 15px;">
+
+    {% if food_list %}
+        <div id="food-list-container" style="max-height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; border-radius: 4px;">
+            {% for item in food_list %}
+            <div class="item-row food-item-row" data-name="{{ item.item_name|lower }}">
+                <span class="name">{{ item.item_name }}</span>
+                <span class="price">₹{{ "%.2f"|format(item.price) }}</span>
+                <input type="number" name="qty_{{ item.item_id }}" min="0" value="0">
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No food items available. Please add food items first.</p>
+    {% endif %}
+
+    <button type="submit">Place Order</button>
+</form>
+
+<script>
+    document.getElementById('food-search').addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const items = document.querySelectorAll('.food-item-row');
+        
+        items.forEach(item => {
+            const name = item.getAttribute('data-name');
+            if (name.includes(searchTerm)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+</script>
+{% endblock %}

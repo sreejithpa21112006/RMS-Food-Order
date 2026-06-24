@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Update Order Status</h2>
+
+<form method="POST">
+    <input type="hidden" name="action" value="search">
+    <label for="order_id">Order ID</label>
+    <input type="number" id="order_id" name="order_id" required>
+    <button type="submit">Search</button>
+</form>
+
+{% if order %}
+<h2 style="margin-top:30px;">Order Found</h2>
+<table>
+    <tr><th>Order ID</th><td>#{{ order.order_id }}</td></tr>
+    <tr><th>Customer Name</th><td>{{ order.customer_name }}</td></tr>
+    <tr><th>Customer Mobile Number</th><td>{{ order.customer_mobile }}</td></tr>
+    <tr><th>Order Date</th><td>{{ order.order_date }}</td></tr>
+    <tr><th>Current Status</th><td><span class="status-badge status-{{ order.status }}">{{ order.status }}</span></td></tr>
+    <tr><th>Total Amount</th><td>₹{{ "%.2f"|format(order.total_amount) }}</td></tr>
+</table>
+
+<form method="POST" style="margin-top:20px;">
+    <input type="hidden" name="action" value="update">
+    <input type="hidden" name="order_id" value="{{ order.order_id }}">
+
+    <label for="status">New Status</label>
+    <select id="status" name="status" required>
+        <option value="new" {% if order.status == "new" %}selected{% endif %}>New</option>
+        <option value="paid" {% if order.status == "paid" %}selected{% endif %}>Paid</option>
+        <option value="unpaid" {% if order.status == "unpaid" %}selected{% endif %}>Unpaid</option>
+    </select>
+
+    <button type="submit">Update Status</button>
+</form>
+{% endif %}
+{% endblock %}

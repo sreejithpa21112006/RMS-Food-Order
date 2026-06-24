@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Food Order Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>Food Order Management System</h1>
+        {% if session.get('user_id') %}
+        <nav>
+            <a href="{{ url_for('public.home') }}">Home</a>
+            {% if session.get('role') == 'admin' %}
+            <a href="{{ url_for('food_items.food_items') }}">Manage Menu</a>
+            <a href="{{ url_for('auth.manage_users') }}">Manage Users</a>
+            <a href="{{ url_for('orders.list_orders') }}">List Orders</a>
+            <a href="{{ url_for('orders.view_order') }}">View Order</a>
+            <a href="{{ url_for('orders.update_order') }}">Update Order</a>
+            {% endif %}
+            <a href="{{ url_for('orders.new_order') }}">New Order</a>
+            <a href="{{ url_for('orders.cancel_order') }}">Cancel Order</a>
+            <a href="{{ url_for('auth.logout') }}" style="color: #c11c1c; font-weight: bold;">Logout</a>
+        </nav>
+        {% endif %}
+    </header>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+
+</html>

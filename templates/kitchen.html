@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Kitchen Display System (KDS)</h2>
+<p>Live view of all incoming and preparing orders.</p>
+
+<!-- Meta refresh to auto-reload the page every 30 seconds -->
+<meta http-equiv="refresh" content="30">
+
+<style>
+    .kds-card-new { border-color: #e74c3c !important; }
+    .kds-card-preparing { border-color: #f39c12 !important; }
+    
+    .kds-badge-new { background-color: #e74c3c !important; }
+    .kds-badge-preparing { background-color: #f39c12 !important; }
+</style>
+
+<div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
+    {% for order in orders %}
+    
+    <div class="kds-card-{{ order.status }}" style="flex: 1 1 300px; max-width: 400px; border: 2px solid; border-radius: 8px; padding: 15px; background-color: #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px;">
+            <h3 style="margin: 0; color: #2c3e50;">Order #{{ order.order_id }}</h3>
+            <span class="status-badge kds-badge-{{ order.status }}" style="color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 12px; text-transform: uppercase;">
+                {{ order.status }}
+            </span>
+        </div>
+        
+        <div style="color: #7f8c8d; font-size: 14px; margin-bottom: 15px;">
+            Time: {{ order.order_date }}<br>
+            For: {{ order.customer_name }}
+        </div>
+
+        <ul style="list-style-type: none; padding: 0; margin: 0 0 20px 0;">
+            {% for item in order_items.get(order.order_id|string, []) %}
+            <li style="padding: 8px 0; border-bottom: 1px dashed #eee; font-size: 16px;">
+                <strong style="font-size: 18px;">{{ item.quantity }}x</strong> &nbsp; {{ item.item_name }}
+            </li>
+            {% endfor %}
+        </ul>
+
+        <div style="text-align: right;">
+            {% if order.status == 'new' %}
+            <form method="POST" style="margin: 0;">
+                <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                <input type="hidden" name="status" value="preparing">
+                <button type="submit" style="background-color: #f39c12; width: 100%;">Start Preparing</button>
+            </form>
+            {% elif order.status == 'preparing' %}
+            <form method="POST" style="margin: 0;">
+                <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                <input type="hidden" name="status" value="ready">
+                <button type="submit" style="background-color: #27ae60; width: 100%;">Mark as Ready</button>
+            </form>
+            {% endif %}
+        </div>
+        
+    </div>
+    {% else %}
+    <div style="text-align: center; width: 100%; padding: 40px; color: #7f8c8d; font-size: 18px;">
+        <p>No active orders at the moment. Good job!</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

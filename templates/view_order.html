@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>View Order</h2>
+
+<form method="POST">
+    <label for="order_id">Order ID</label>
+    <input type="number" id="order_id" name="order_id" required>
+    <button type="submit">Search</button>
+</form>
+
+{% if order %}
+<h2 style="margin-top:30px;">Order Details</h2>
+<table>
+    <tr><th>Order ID</th><td>#{{ order.order_id }}</td></tr>
+    <tr><th>Customer Name</th><td>{{ order.customer_name }}</td></tr>
+    <tr><th>Customer Mobile Number</th><td>{{ order.customer_mobile }}</td></tr>
+    <tr><th>Order Date</th><td>{{ order.order_date }}</td></tr>
+    <tr><th>Order Status</th><td><span class="status-badge status-{{ order.status }}">{{ order.status }}</span></td></tr>
+    <tr><th>Total Amount</th><td>₹{{ "%.2f"|format(order.total_amount) }}</td></tr>
+</table>
+
+<h2 style="margin-top:25px;">Food Items</h2>
+<table>
+    <tr>
+        <th>Item Name</th>
+        <th>Price (₹)</th>
+        <th>Quantity</th>
+        <th>Subtotal (₹)</th>
+    </tr>
+    {% for item in items %}
+    <tr>
+        <td>{{ item.item_name }}</td>
+        <td>{{ "%.2f"|format(item.price) }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ "%.2f"|format(item.price * item.quantity) }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock %}

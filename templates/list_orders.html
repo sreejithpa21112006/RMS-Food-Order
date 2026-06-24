@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>All Orders</h2>
+
+<table>
+    <tr>
+        <th>Order ID</th>
+        <th>Mobile Number</th>
+        <th>Customer Name</th>
+        <th>Order Date</th>
+        <th>Final Amount (₹)</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    {% for order in orders %}
+    <tr>
+        <td>#{{ order.order_id }}</td>
+        <td>{{ order.customer_mobile }}</td>
+        <td>{{ order.customer_name }}</td>
+        <td>{{ order.order_date }}</td>
+        <td>{{ "%.2f"|format(order.total_amount) }}</td>
+        <td><span class="status-badge status-{{ order.status }}">{{ order.status }}</span></td>
+        <td>
+            <a href="{{ url_for('orders.edit_order_items', order_id=order.order_id) }}" class="btn" style="padding: 4px 8px; font-size: 12px; margin-top: 0;">Edit Items</a>
+        </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="7">No orders placed yet.</td></tr>
+    {% endfor %}
+</table>
+
+<div style="margin-top: 20px; text-align: center;">
+    {% if page > 1 %}
+    <a href="{{ url_for('orders.list_orders', page=page-1) }}" class="btn" style="padding: 6px 12px; font-size: 13px;">&laquo; Previous</a>
+    {% endif %}
+    
+    <span style="margin: 0 15px; font-weight: bold;">Page {{ page }} of {{ total_pages }}</span>
+    
+    {% if page < total_pages %}
+    <a href="{{ url_for('orders.list_orders', page=page+1) }}" class="btn" style="padding: 6px 12px; font-size: 13px;">Next &raquo;</a>
+    {% endif %}
+</div>
+{% endblock %}

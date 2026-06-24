@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+{% if session.get('role') == 'admin' %}
+<h2>Admin Dashboard</h2>
+<p>Select an option below to manage food items, users, and customer orders.</p>
+{% else %}
+<h2>Staff Dashboard</h2>
+<p>Select an option below to manage orders.</p>
+{% endif %}
+
+<div class="dashboard-grid">
+    {% if session.get('role') == 'admin' %}
+    <a href="{{ url_for('food_items.food_items') }}">Manage Menu</a>
+    <a href="{{ url_for('auth.manage_users') }}">Manage Users</a>
+    {% endif %}
+    
+    {% if session.get('role') in ['admin', 'kitchen'] %}
+    <a href="{{ url_for('orders.kitchen_dashboard') }}">Kitchen Display System</a>
+    {% endif %}
+    
+    {% if session.get('role') in ['admin', 'staff'] %}
+    <a href="{{ url_for('orders.new_order') }}">Create New Order</a>
+    {% endif %}
+    
+    {% if session.get('role') == 'admin' %}
+    <a href="{{ url_for('orders.list_orders') }}">List All Orders</a>
+    <a href="{{ url_for('orders.view_order') }}">View Order Details</a>
+    <a href="{{ url_for('orders.update_order') }}">Update Order Status</a>
+    {% endif %}
+    
+    {% if session.get('role') in ['admin', 'staff'] %}
+    <a href="{{ url_for('orders.cancel_order') }}">Cancel Order</a>
+    {% endif %}
+    
+    {% if session.get('role') == 'admin' %}
+    <a href="{{ url_for('public.generate_qr') }}" target="_blank">View Menu QR Code</a>
+    {% endif %}
+</div>
+{% endblock %}

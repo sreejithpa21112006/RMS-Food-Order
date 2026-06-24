@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Manage Users</h2>
+<p>As an admin, you can grant or revoke access to the system here.</p>
+
+<form method="POST" style="margin-top: 20px; background-color: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
+    <h3>Add New User</h3>
+    <input type="hidden" name="action" value="add">
+    
+    <div style="display: flex; gap: 15px; align-items: flex-end;">
+        <div style="flex: 2;">
+            <label for="email">Google Email Address</label>
+            <input type="email" id="email" name="email" placeholder="employee@gmail.com" required style="margin-bottom: 0;">
+        </div>
+        
+        <div style="flex: 1;">
+            <label for="role_id">Role</label>
+            <select id="role_id" name="role_id" required style="margin-bottom: 0;">
+                <option value="">Select Role</option>
+                {% for role in roles %}
+                <option value="{{ role.role_id }}">{{ role.role_name|capitalize }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div style="flex: 1;">
+            <button type="submit" style="margin: 0; width: 100%;">Grant Access</button>
+        </div>
+    </div>
+</form>
+
+<h3 style="margin-top: 40px;">Current Authorized Users</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Email Address</th>
+            <th>Role</th>
+            <th style="width: 100px; text-align: center;">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>
+                <span class="status-badge" style="background-color: {% if user.role_name == 'admin' %}#e74c3c{% elif user.role_name == 'kitchen' %}#f39c12{% else %}#3498db{% endif %}; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold;">
+                    {{ user.role_name|capitalize }}
+                </span>
+            </td>
+            <td style="text-align: center;">
+                <form method="POST" style="margin: 0; display: inline;" onsubmit="return confirm('Are you sure you want to revoke access for {{ user.username }}?');">
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="user_id" value="{{ user.user_id }}">
+                    <button type="submit" style="background-color: #e74c3c; padding: 5px 10px; font-size: 12px; margin: 0;">Remove</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="3" style="text-align: center;">No users found in the database.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
