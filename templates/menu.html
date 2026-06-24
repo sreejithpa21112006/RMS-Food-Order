@@ -82,8 +82,19 @@
     </div>
 
     <div class="menu-container">
+        {% if menu_data %}
+        <div style="margin-bottom: 30px; text-align: center;">
+            <select id="categoryFilter" onchange="filterCategory()" style="padding: 10px 15px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc; max-width: 100%; width: 300px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <option value="all">All Categories</option>
+                {% for category in menu_data.keys() %}
+                <option value="{{ category|replace(' ', '_') }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% endif %}
+
         {% for category, items in menu_data.items() %}
-            <div class="category-section">
+            <div class="category-section" id="cat-{{ category|replace(' ', '_') }}">
                 <h2 class="category-title">{{ category }}</h2>
                 {% for item in items %}
                     <div class="menu-item">
@@ -100,6 +111,21 @@
             <p style="text-align: center; color: #6b7280;">No menu items currently available.</p>
         {% endfor %}
     </div>
+
+    <script>
+        function filterCategory() {
+            const selected = document.getElementById('categoryFilter').value;
+            const sections = document.querySelectorAll('.category-section');
+            
+            sections.forEach(section => {
+                if (selected === 'all' || section.id === 'cat-' + selected) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
