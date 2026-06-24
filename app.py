@@ -25,6 +25,11 @@ def create_app():
     app.register_blueprint(orders_bp)
     app.register_blueprint(public_bp)
 
+    @app.errorhandler(Exception)
+    def handle_exception(e):
+        import traceback
+        return f"<h1>Internal Server Error</h1><pre>{traceback.format_exc()}</pre>", 500
+
     # Fix for running behind a reverse proxy (like Render)
     from werkzeug.middleware.proxy_fix import ProxyFix
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
