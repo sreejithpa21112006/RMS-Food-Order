@@ -23,6 +23,10 @@ def create_app():
     app.register_blueprint(orders_bp)
     app.register_blueprint(public_bp)
 
+    # Fix for running behind a reverse proxy (like Render)
+    from werkzeug.middleware.proxy_fix import ProxyFix
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+
     return app
 
 app = create_app()
