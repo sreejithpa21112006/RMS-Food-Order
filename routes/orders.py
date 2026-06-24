@@ -3,7 +3,7 @@ import mysql.connector
 from datetime import date
 from flask_mail import Message
 from database import get_db
-from extensions import mail
+from extensions import mail, socketio
 from routes.auth import admin_required
 
 orders_bp = Blueprint('orders', __name__)
@@ -75,6 +75,7 @@ def new_order():
                 flash("Order created but failed to send email. Check SMTP settings.", "warning")
 
         flash(f"Order #{order_id} created successfully for {customer_name}.", "success")
+        socketio.emit('kitchen_update', {'action': 'refresh'})
         return redirect(url_for("orders.list_orders"))
 
     cursor.close()
@@ -203,6 +204,27 @@ def view_order():
 
     return render_template("view_order.html", order=order, items=items)
 
+@orders_bp.route("/orders/receipt/<int:order_id>")
+def print_receipt(order_id):
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    
+    cursor.execute("SELECT * FROM orders WHERE order_id = %s", (order_id,))
+    order = cursor.fetchone()
+    
+    if not order:
+        flash("Order not found.", "error")
+        cursor.close()
+        db.close()
+        return redirect(url_for('orders.list_orders'))
+        
+    cursor.execute("SELECT item_name, price, quantity FROM order_items WHERE order_id = %s", (order_id,))
+    items = cursor.fetchall()
+    
+    cursor.close()
+    db.close()
+    
+    return render_template("receipt.html", order=order, items=items)
 @orders_bp.route("/orders/update", methods=["GET", "POST"])
 @admin_required
 def update_order():
@@ -237,6 +259,7 @@ def update_order():
                     )
                     db.commit()
                     flash(f"Order status updated to '{new_status}' for {order['customer_name']}.", "success")
+                    socketio.emit('kitchen_update', {'action': 'refresh'})
                     
                     if order.get('customer_email'):
                         try:
@@ -288,6 +311,7 @@ def cancel_order():
                     )
                     db.commit()
                     flash(f"Order for {order['customer_name']} has been canceled.", "success")
+                    socketio.emit('kitchen_update', {'action': 'refresh'})
                     
                     if order.get('customer_email'):
                         try:
@@ -322,6 +346,7 @@ def kitchen_dashboard():
         if order_id and new_status in ['preparing', 'ready']:
             cursor.execute("UPDATE orders SET status = %s WHERE order_id = %s", (new_status, order_id))
             db.commit()
+            socketio.emit('kitchen_update', {'action': 'refresh'})
             
     cursor.execute("""
         SELECT order_id, order_date, status, customer_name

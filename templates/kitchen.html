@@ -3,8 +3,16 @@
 <h2>Kitchen Display System (KDS)</h2>
 <p>Live view of all incoming and preparing orders.</p>
 
-<!-- Meta refresh to auto-reload the page every 30 seconds -->
-<meta http-equiv="refresh" content="30">
+<!-- Removed meta refresh in favor of WebSockets -->
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script>
+    const socket = io();
+    socket.on('kitchen_update', function(data) {
+        if (data.action === 'refresh') {
+            window.location.reload();
+        }
+    });
+</script>
 
 <style>
     .kds-card-new { border-color: #e74c3c !important; }

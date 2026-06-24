@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt - Order #{{ order.order_id }}</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: #fff;
+            color: #000;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .header p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .divider {
+            border-top: 1px dashed #000;
+            margin: 15px 0;
+        }
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        .item-name {
+            flex: 1;
+        }
+        .item-qty {
+            width: 40px;
+            text-align: right;
+        }
+        .item-price {
+            width: 80px;
+            text-align: right;
+        }
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+        @media print {
+            body {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body onload="window.print()">
+
+    <div class="no-print" style="text-align: center; margin-bottom: 20px;">
+        <button onclick="window.print()" style="padding: 10px 20px; font-size: 16px;">Print Receipt</button>
+        <button onclick="window.close()" style="padding: 10px 20px; font-size: 16px;">Close</button>
+    </div>
+
+    <div class="header">
+        <h1>RESTAURANT NAME</h1>
+        <p>Order Receipt</p>
+        <p>Order #: {{ order.order_id }}</p>
+        <p>Date: {{ order.order_date }}</p>
+    </div>
+    
+    <div style="font-size: 14px; margin-bottom: 10px;">
+        Customer: {{ order.customer_name }}<br>
+        Mobile: {{ order.customer_mobile }}
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="item-row" style="font-weight: bold;">
+        <div class="item-name">Item</div>
+        <div class="item-qty">Qty</div>
+        <div class="item-price">Total</div>
+    </div>
+    
+    <div class="divider"></div>
+
+    {% for item in items %}
+    <div class="item-row">
+        <div class="item-name">{{ item.item_name }}</div>
+        <div class="item-qty">{{ item.quantity }}x</div>
+        <div class="item-price">₹{{ "%.2f"|format(item.price * item.quantity) }}</div>
+    </div>
+    {% endfor %}
+
+    <div class="divider"></div>
+
+    <div class="total-row">
+        <div>TOTAL</div>
+        <div>₹{{ "%.2f"|format(order.total_amount) }}</div>
+    </div>
+
+    <div class="footer">
+        Thank you for your order!
+    </div>
+
+</body>
+</html>
