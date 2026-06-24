@@ -2,15 +2,30 @@ import mysql.connector
 import os
 from config import Config
 
+import mysql.connector.pooling
+
+db_pool = None
+
+def init_db_pool():
+    global db_pool
+    if db_pool is None:
+        db_config = {
+            "host": Config.DB_HOST,
+            "user": Config.DB_USER,
+            "password": Config.DB_PASSWORD,
+            "database": Config.DB_NAME,
+            "pool_name": "mypool",
+            "pool_size": 10,
+            "pool_reset_session": True
+        }
+        db_pool = mysql.connector.pooling.MySQLConnectionPool(**db_config)
+
 def get_db():
-    """Open a new MySQL connection for the current request."""
-    db_config = {
-        "host": Config.DB_HOST,
-        "user": Config.DB_USER,
-        "password": Config.DB_PASSWORD,
-        "database": Config.DB_NAME
-    }
-    return mysql.connector.connect(**db_config)
+    """Get a MySQL connection from the pool for the current request."""
+    global db_pool
+    if db_pool is None:
+        init_db_pool()
+    return db_pool.get_connection()
 
 def init_db_schema():
     print("Initializing database schema...")
