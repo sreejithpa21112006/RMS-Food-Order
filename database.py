@@ -16,7 +16,7 @@ def init_db_pool():
             "database": Config.DB_NAME,
             "pool_name": "mypool",
             "pool_size": 10,
-            "pool_reset_session": True
+            "pool_reset_session": False
         }
         db_pool = mysql.connector.pooling.MySQLConnectionPool(**db_config)
 
