@@ -75,7 +75,10 @@ def new_order():
                 flash("Order created but failed to send email. Check SMTP settings.", "warning")
 
         flash(f"Order #{order_id} created successfully for {customer_name}.", "success")
-        socketio.emit('kitchen_update', {'action': 'refresh'})
+        try:
+            socketio.emit('kitchen_update', {'action': 'refresh'})
+        except Exception as e:
+            print("SocketIO Error:", e)
         return redirect(url_for("orders.list_orders"))
 
     cursor.close()
@@ -259,7 +262,10 @@ def update_order():
                     )
                     db.commit()
                     flash(f"Order status updated to '{new_status}' for {order['customer_name']}.", "success")
-                    socketio.emit('kitchen_update', {'action': 'refresh'})
+                    try:
+                        socketio.emit('kitchen_update', {'action': 'refresh'})
+                    except Exception as e:
+                        print("SocketIO Error:", e)
                     
                     if order.get('customer_email'):
                         try:
@@ -311,7 +317,10 @@ def cancel_order():
                     )
                     db.commit()
                     flash(f"Order for {order['customer_name']} has been canceled.", "success")
-                    socketio.emit('kitchen_update', {'action': 'refresh'})
+                    try:
+                        socketio.emit('kitchen_update', {'action': 'refresh'})
+                    except Exception as e:
+                        print("SocketIO Error:", e)
                     
                     if order.get('customer_email'):
                         try:
@@ -346,7 +355,10 @@ def kitchen_dashboard():
         if order_id and new_status in ['preparing', 'ready']:
             cursor.execute("UPDATE orders SET status = %s WHERE order_id = %s", (new_status, order_id))
             db.commit()
-            socketio.emit('kitchen_update', {'action': 'refresh'})
+            try:
+                socketio.emit('kitchen_update', {'action': 'refresh'})
+            except Exception as e:
+                print("SocketIO Error:", e)
             
     cursor.execute("""
         SELECT order_id, order_date, status, customer_name
