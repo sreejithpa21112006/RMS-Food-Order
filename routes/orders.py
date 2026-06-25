@@ -439,10 +439,15 @@ def cancel_order():
                             pdf = FPDF()
                             pdf.add_page()
                             
-                            pdf.set_font("Helvetica", style="B", size=60)
+                            pdf.set_font("Helvetica", style="B", size=80)
                             pdf.set_text_color(255, 200, 200)
-                            with pdf.rotation(45, 105, 150):
-                                pdf.text(x=30, y=150, text='CANCELLED')
+                            
+                            x_center = 105
+                            y_center = 148.5
+                            width = pdf.get_string_width("CANCELLED")
+                            
+                            with pdf.rotation(45, x_center, y_center):
+                                pdf.text(x=x_center - width/2, y=y_center + 10, text='CANCELLED')
                                 
                             pdf.set_font("Helvetica", style="B", size=20)
                             pdf.set_fill_color(240, 240, 240)
