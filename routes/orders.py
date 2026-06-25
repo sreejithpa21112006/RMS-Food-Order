@@ -409,6 +409,9 @@ def cancel_order():
                     
                     if order.get('customer_email'):
                         try:
+                            cursor.execute("SELECT item_name, price, quantity FROM order_items WHERE order_id = %s", (order_id,))
+                            selected_items = cursor.fetchall()
+                            
                             msg = Message("Order Canceled", recipients=[order['customer_email']])
                             msg.body = f"Hello {order['customer_name']},\n\nYour order #{order_id} has been canceled.\n\nSorry for the inconvenience."
                             
@@ -420,6 +423,7 @@ def cancel_order():
                                 <div style="padding: 20px; color: #333;">
                                     <p style="font-size: 16px;">Hello <strong>{order['customer_name']}</strong>,</p>
                                     <p style="font-size: 16px;">We are writing to inform you that your order <strong>#{order_id}</strong> has been canceled.</p>
+                                    <p style="font-size: 16px;">Please find your canceled bill attached to this email.</p>
                                     <p style="font-size: 16px;">We sincerely apologize for any inconvenience this may have caused. If you have any questions or concerns, please don't hesitate to reach out to us.</p>
                                     <br>
                                     <p style="font-size: 16px;">Best regards,<br><strong>Restaurant Team</strong></p>
@@ -430,6 +434,77 @@ def cancel_order():
                             </div>
                             """
                             msg.html = html_body
+                            
+                            from fpdf import FPDF
+                            pdf = FPDF()
+                            pdf.add_page()
+                            
+                            pdf.set_font("Helvetica", style="B", size=60)
+                            pdf.set_text_color(255, 200, 200)
+                            with pdf.rotation(45, 105, 150):
+                                pdf.text(x=30, y=150, text='CANCELLED')
+                                
+                            pdf.set_font("Helvetica", style="B", size=20)
+                            pdf.set_fill_color(240, 240, 240)
+                            pdf.set_text_color(0, 0, 0)
+                            pdf.cell(0, 15, text="RESTAURANT NAME", align="C", new_x="LMARGIN", new_y="NEXT", fill=True)
+                            pdf.ln(5)
+                            
+                            pdf.set_font("Helvetica", size=12)
+                            pdf.cell(0, 8, text="CANCELED ORDER RECEIPT", align="C", new_x="LMARGIN", new_y="NEXT")
+                            pdf.set_text_color(100, 100, 100)
+                            pdf.cell(0, 6, text=f"Order #: {order_id} | Date: {order['order_date']}", align="C", new_x="LMARGIN", new_y="NEXT")
+                            pdf.ln(5)
+                            
+                            pdf.set_text_color(0, 0, 0)
+                            pdf.set_font("Helvetica", style="B", size=11)
+                            pdf.cell(30, 8, text="Customer:", align="L")
+                            pdf.set_font("Helvetica", size=11)
+                            pdf.cell(0, 8, text=f"{order['customer_name']}", align="L", new_x="LMARGIN", new_y="NEXT")
+                            
+                            pdf.set_font("Helvetica", style="B", size=11)
+                            pdf.cell(30, 8, text="Mobile:", align="L")
+                            pdf.set_font("Helvetica", size=11)
+                            pdf.cell(0, 8, text=f"{order['customer_mobile']}", align="L", new_x="LMARGIN", new_y="NEXT")
+                            pdf.ln(8)
+                            
+                            pdf.set_fill_color(50, 50, 50)
+                            pdf.set_text_color(255, 255, 255)
+                            pdf.set_font("Helvetica", style="B", size=11)
+                            pdf.cell(100, 10, text=" Item Description", align="L", fill=True)
+                            pdf.cell(30, 10, text="Qty", align="C", fill=True)
+                            pdf.cell(60, 10, text="Total ", align="R", new_x="LMARGIN", new_y="NEXT", fill=True)
+                            
+                            pdf.set_text_color(0, 0, 0)
+                            pdf.set_font("Helvetica", size=11)
+                            fill = False
+                            pdf.set_fill_color(245, 245, 245)
+                            
+                            for item in selected_items:
+                                item_name = item['item_name']
+                                price = item['price']
+                                qty = item['quantity']
+                                line_total = float(price) * qty
+                                clean_item_name = str(item_name).encode('latin-1', 'replace').decode('latin-1')
+                                pdf.cell(100, 10, text=f" {clean_item_name[:40]}", align="L", fill=fill)
+                                pdf.cell(30, 10, text=f"{qty}x", align="C", fill=fill)
+                                pdf.cell(60, 10, text=f"Rs {line_total:.2f} ", align="R", new_x="LMARGIN", new_y="NEXT", fill=fill)
+                                fill = not fill
+                            
+                            pdf.ln(5)
+                            pdf.set_font("Helvetica", style="B", size=14)
+                            pdf.cell(130, 12, text="TOTAL AMOUNT:", align="R")
+                            pdf.set_text_color(220, 53, 69)
+                            pdf.cell(60, 12, text=f"Rs {order['total_amount']:.2f} ", align="R", new_x="LMARGIN", new_y="NEXT")
+                            
+                            pdf.ln(15)
+                            pdf.set_text_color(150, 150, 150)
+                            pdf.set_font("Helvetica", style="I", size=10)
+                            pdf.cell(0, 10, text="This order has been canceled.", align="C", new_x="LMARGIN", new_y="NEXT")
+                            
+                            pdf_bytes = pdf.output()
+                            msg.attach(f"canceled_receipt_{order_id}.pdf", "application/pdf", bytes(pdf_bytes))
+                            
                             mail.send(msg)
                         except Exception as e:
                             print("Failed to send email:", e)
