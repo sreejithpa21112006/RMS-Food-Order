@@ -11,6 +11,7 @@ def init_db_pool():
     if db_pool is None:
         db_config = {
             "host": Config.DB_HOST,
+            "port": Config.DB_PORT,
             "user": Config.DB_USER,
             "password": Config.DB_PASSWORD,
             "database": Config.DB_NAME,
@@ -32,6 +33,7 @@ def init_db_schema():
     try:
         config_no_db = {
             "host": Config.DB_HOST,
+            "port": Config.DB_PORT,
             "user": Config.DB_USER,
             "password": Config.DB_PASSWORD
         }
