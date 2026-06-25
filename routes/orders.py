@@ -79,7 +79,9 @@ def new_order():
             socketio.emit('kitchen_update', {'action': 'refresh'})
         except Exception as e:
             print("SocketIO Error:", e)
-        return redirect(url_for("orders.list_orders"))
+        if session.get('role') == 'admin':
+            return redirect(url_for("orders.list_orders"))
+        return redirect(url_for("public.home"))
 
     cursor.close()
     db.close()
