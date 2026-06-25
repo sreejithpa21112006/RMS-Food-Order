@@ -1,11 +1,11 @@
 from flask_mail import Mail
-from flask_socketio import SocketIO
+
 import firebase_admin
 from firebase_admin import credentials, auth
 import os
 
 mail = Mail()
-socketio = SocketIO(cors_allowed_origins="*")
+
 
 def init_firebase():
     try:

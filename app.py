@@ -1,6 +1,6 @@
 from flask import Flask
 from config import Config
-from extensions import mail, init_firebase, socketio
+from extensions import mail, init_firebase
 from database import init_db_schema
 
 # Import blueprints
@@ -16,7 +16,7 @@ def create_app():
     # Initialize extensions
     # Initialize extensions
     mail.init_app(app)
-    socketio.init_app(app)
+    
     init_firebase()
 
     # Register blueprints
@@ -40,4 +40,4 @@ app = create_app()
 
 if __name__ == "__main__":
     init_db_schema()
-    socketio.run(app, debug=True)
+    app.run(debug=True)

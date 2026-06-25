@@ -3,15 +3,11 @@
 <h2>Kitchen Display System (KDS)</h2>
 <p>Live view of all incoming and preparing orders.</p>
 
-<!-- Removed meta refresh in favor of WebSockets -->
-<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<!-- Polling added since WebSockets are removed for Vercel support -->
 <script>
-    const socket = io();
-    socket.on('kitchen_update', function(data) {
-        if (data.action === 'refresh') {
-            window.location.reload();
-        }
-    });
+    setTimeout(function() {
+        window.location.reload();
+    }, 15000); // refresh every 15 seconds
 </script>
 
 <style>
