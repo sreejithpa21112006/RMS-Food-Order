@@ -149,6 +149,26 @@ def new_order():
                 pdf.set_font("Helvetica", style="I", size=10)
                 pdf.cell(0, 10, text="Thank you for your business!", align="C", new_x="LMARGIN", new_y="NEXT")
                 
+                # Generate UPI Payment QR Code
+                try:
+                    import qrcode
+                    upi_url = f"upi://pay?pa=restaurant@upi&pn=Restaurant%20Name&am={total_amount:.2f}&cu=INR"
+                    qr = qrcode.QRCode(box_size=5, border=1)
+                    qr.add_data(upi_url)
+                    qr.make(fit=True)
+                    qr_img = qr.make_image(fill_color="black", back_color="white")
+                    
+                    pdf.ln(2)
+                    pdf.set_text_color(0, 0, 0)
+                    pdf.set_font("Helvetica", style="B", size=10)
+                    pdf.cell(0, 10, text="Scan to Pay via UPI (GPay, PhonePe, Paytm)", align="C", new_x="LMARGIN", new_y="NEXT")
+                    
+                    # Add QR image (centered: A4 width 210 / 2 = 105. x = 105 - 20 = 85)
+                    pdf.image(qr_img.get_image(), x=85, w=40)
+                    pdf.ln(45)
+                except Exception as qr_e:
+                    print("QR Code generation failed:", qr_e)
+                
                 pdf_bytes = pdf.output()
                 msg.attach(f"receipt_order_{order_id}.pdf", "application/pdf", bytes(pdf_bytes))
                 
