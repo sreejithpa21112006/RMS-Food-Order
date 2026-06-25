@@ -152,7 +152,7 @@ def new_order():
                 # Generate UPI Payment QR Code
                 try:
                     import qrcode
-                    upi_url = f"upi://pay?pa=restaurant@upi&pn=Restaurant%20Name&am={total_amount:.2f}&cu=INR"
+                    upi_url = f"upi://pay?pa=7826091679@fam&pn=Restaurant%20Name&am={total_amount:.2f}&cu=INR"
                     qr = qrcode.QRCode(box_size=5, border=1)
                     qr.add_data(upi_url)
                     qr.make(fit=True)
