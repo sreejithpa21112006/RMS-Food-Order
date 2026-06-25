@@ -68,7 +68,55 @@ def new_order():
         if customer_email:
             try:
                 msg = Message("Order Confirmation", recipients=[customer_email])
-                msg.body = f"Hello {customer_name},\n\nYour order has been placed successfully!\nTotal amount: ₹{total_amount:.2f}\n\nThank you for ordering with us."
+                msg.body = f"Hello {customer_name},\n\nYour order has been placed successfully!\nTotal amount: Rs {total_amount:.2f}\n\nPlease find your bill attached.\n\nThank you for ordering with us."
+                
+                from fpdf import FPDF
+                pdf = FPDF()
+                pdf.add_page()
+                pdf.set_font("Courier", size=12)
+                
+                pdf.set_font("Courier", style="B", size=16)
+                pdf.cell(0, 10, text="RESTAURANT NAME", align="C", new_x="LMARGIN", new_y="NEXT")
+                pdf.set_font("Courier", size=12)
+                pdf.cell(0, 10, text="Order Receipt", align="C", new_x="LMARGIN", new_y="NEXT")
+                pdf.cell(0, 10, text=f"Order #: {order_id}", align="C", new_x="LMARGIN", new_y="NEXT")
+                pdf.cell(0, 10, text=f"Date: {order_date}", align="C", new_x="LMARGIN", new_y="NEXT")
+                pdf.ln(5)
+                
+                pdf.cell(0, 10, text=f"Customer: {customer_name}", align="L", new_x="LMARGIN", new_y="NEXT")
+                pdf.cell(0, 10, text=f"Mobile: {customer_mobile}", align="L", new_x="LMARGIN", new_y="NEXT")
+                pdf.ln(5)
+                
+                pdf.cell(0, 5, text="-"*50, align="C", new_x="LMARGIN", new_y="NEXT")
+                
+                pdf.set_font("Courier", style="B", size=12)
+                pdf.cell(80, 10, text="Item", align="L")
+                pdf.cell(30, 10, text="Qty", align="C")
+                pdf.cell(50, 10, text="Total", align="R", new_x="LMARGIN", new_y="NEXT")
+                
+                pdf.cell(0, 5, text="-"*50, align="C", new_x="LMARGIN", new_y="NEXT")
+                pdf.set_font("Courier", size=12)
+                
+                for item_id, item_name, price, qty in selected_items:
+                    line_total = float(price) * qty
+                    clean_item_name = str(item_name).encode('latin-1', 'replace').decode('latin-1')
+                    pdf.cell(80, 10, text=clean_item_name[:25], align="L")
+                    pdf.cell(30, 10, text=f"{qty}x", align="C")
+                    pdf.cell(50, 10, text=f"Rs {line_total:.2f}", align="R", new_x="LMARGIN", new_y="NEXT")
+                    
+                pdf.cell(0, 5, text="-"*50, align="C", new_x="LMARGIN", new_y="NEXT")
+                
+                pdf.set_font("Courier", style="B", size=14)
+                pdf.cell(110, 10, text="TOTAL", align="L")
+                pdf.cell(50, 10, text=f"Rs {total_amount:.2f}", align="R", new_x="LMARGIN", new_y="NEXT")
+                pdf.ln(20)
+                
+                pdf.set_font("Courier", size=10)
+                pdf.cell(0, 10, text="Thank you for your order!", align="C", new_x="LMARGIN", new_y="NEXT")
+                
+                pdf_bytes = pdf.output()
+                msg.attach(f"receipt_order_{order_id}.pdf", "application/pdf", bytes(pdf_bytes))
+                
                 mail.send(msg)
             except Exception as e:
                 print("Failed to send email:", e)
