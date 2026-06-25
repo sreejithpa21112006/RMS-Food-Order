@@ -1,5 +1,4 @@
-CREATE DATABASE IF NOT EXISTS rms_db;
-USE rms_db;
+-- Schema definitions
 
 -- Categories for menu items
 CREATE TABLE IF NOT EXISTS categories (

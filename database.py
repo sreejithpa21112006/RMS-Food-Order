@@ -31,14 +31,15 @@ def get_db():
 def init_db_schema():
     print("Initializing database schema...")
     try:
-        config_no_db = {
+        config_db = {
             "host": Config.DB_HOST,
             "port": Config.DB_PORT,
             "user": Config.DB_USER,
-            "password": Config.DB_PASSWORD
+            "password": Config.DB_PASSWORD,
+            "database": Config.DB_NAME
         }
         
-        conn = mysql.connector.connect(**config_no_db)
+        conn = mysql.connector.connect(**config_db)
         cursor = conn.cursor()
         
         schema_path = os.path.join(os.path.dirname(__file__), "schema.sql")
